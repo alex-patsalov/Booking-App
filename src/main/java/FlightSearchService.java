@@ -6,7 +6,7 @@ public class FlightSearchService {
     public FlightSearchDAO FSDao;
 
     public FlightSearchService(){
-        FSDao = new FlightSearchDB();
+        FSDao = new FlightsDB();
     }
 
     public List<Flight> getAllFlights(){
@@ -29,7 +29,7 @@ public class FlightSearchService {
         FSDao.saveDataToDB(flights);
     }
 
-    public List<Flight> getDataFomDB() throws IOException, ClassNotFoundException {
+    public List<Flight> getDataFromDB() throws IOException, ClassNotFoundException {
         return FSDao.getDataFromDB();
     }
 }

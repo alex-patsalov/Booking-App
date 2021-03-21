@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FlightSearchDB implements FlightSearchDAO{
+public class FlightsDB implements FlightSearchDAO{
 
     List<Flight> allFlights = new ArrayList<>();
 
