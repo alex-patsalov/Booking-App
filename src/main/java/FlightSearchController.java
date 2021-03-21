@@ -31,4 +31,8 @@ public class FlightSearchController {
     public List<Flight> getDataFomDB() throws IOException, ClassNotFoundException {
         return FSS.getDataFromDB();
     }
+
+    public void makeRandomFlights(int number){
+        FSS.makeRandomFlights(number);
+    }
 }

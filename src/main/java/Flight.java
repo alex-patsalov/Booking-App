@@ -1,21 +1,16 @@
-import java.util.Date;
+import java.io.Serializable;
 
-public class Flight {
+import java.util.Random;
+
+public class Flight implements Serializable {
     private final String id = FlightCompany.generateRandomId();
     private final String cityOfDeparture = "Kyiv";
-    private final String cityOfDestination;
-    private final Date timeOfDeparture;
-    private final Date timeOfArrival;
-    private final int totalNumberOfSeats;
-    private int numberOfFreeSeats;
+    private final String cityOfDestination = FlightDestination.getRandomDestination();
+    private final String timeOfDeparture = FlightDestination.getRandomTimeOfDeparture();
+    private final int totalNumberOfSeats = this.getRandomNumberOfSeats();
+    private int numberOfFreeSeats = this.getRandomNumberOfFreeSeats();
+    private static final Random random = new Random();
 
-    public Flight(Date timeOfDeparture, String cityOfDestination, Date timeOfArrival, int totalNumberOfSeats, int numberOfFreeSeats) {
-        this.cityOfDestination = cityOfDestination;
-        this.timeOfDeparture = timeOfDeparture;
-        this.timeOfArrival = timeOfArrival;
-        this.totalNumberOfSeats = totalNumberOfSeats;
-        this.numberOfFreeSeats = numberOfFreeSeats;
-    }
     public String getId(){
         return this.id;
     }
@@ -24,17 +19,37 @@ public class Flight {
         return this.numberOfFreeSeats;
     }
 
-    public void setTotalNumberOfSeats(int number){
+    public int getRandomNumberOfSeats(){
+        return random.nextInt(200) + 100;
+    }
+
+    public int getRandomNumberOfFreeSeats(){
+        return random.nextInt(30) + 1;
+    }
+
+    public void setTotalNumberOfFreeSeats(int number){
         this.numberOfFreeSeats = number;
     }
 
     public boolean bookSeats(int number){
         if(this.getNumberOfFreeSeats() > number){
-            this.setTotalNumberOfSeats(this.getNumberOfFreeSeats() - number);
+            this.setTotalNumberOfFreeSeats(this.getNumberOfFreeSeats() - number);
             System.out.println("The seats are booked");
             return true;
         }
         System.out.println("There is no enough space on the selected flight");
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Flight{" +
+                "id='" + id + '\'' +
+                ", cityOfDeparture='" + cityOfDeparture + '\'' +
+                ", cityOfDestination='" + cityOfDestination + '\'' +
+                ", timeOfDeparture=" + timeOfDeparture +
+                ", totalNumberOfSeats=" + totalNumberOfSeats +
+                ", numberOfFreeSeats=" + numberOfFreeSeats +
+                '}';
     }
 }

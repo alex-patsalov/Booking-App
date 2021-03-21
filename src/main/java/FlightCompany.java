@@ -14,7 +14,7 @@ public enum FlightCompany {
     }
 
     public static String generateRandomId(){
-        int number = random.nextInt(1000) + 100;
+        int number = random.nextInt(900) + 100;
         return getRandomCompany().toString() + number;
     }
 

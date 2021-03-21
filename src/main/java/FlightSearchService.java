@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FlightSearchService {
@@ -31,5 +32,17 @@ public class FlightSearchService {
 
     public List<Flight> getDataFromDB() throws IOException, ClassNotFoundException {
         return FSDao.getDataFromDB();
+    }
+
+    public void makeRandomFlights(int number){
+        List<Flight> flights = new ArrayList<>();
+        for(int i = 0; i < number; i++){
+            flights.add(new Flight());
+        }
+        try {
+            this.saveDataToDB(flights);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
