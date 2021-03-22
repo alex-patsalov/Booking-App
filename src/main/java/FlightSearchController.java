@@ -1,11 +1,21 @@
 import java.io.IOException;
 import java.util.List;
 
-public class FlightSearchController {
-    public FlightSearchService FSS;
+public final class FlightSearchController {
+    private static FlightSearchController FSC;
+    FlightSearchService FSS;
 
-    public FlightSearchController(){
-        FSS = new FlightSearchService();
+    public FlightSearchController(FlightSearchService FSS){
+        this.FSS = FSS;
+    }
+
+    public static FlightSearchController getInstance(FlightSearchService FSS) {
+        if (FlightSearchController.FSC != null) {
+            return FSC;
+        }
+        FlightSearchController.FSC = new FlightSearchController(FSS);
+        return FSC;
+
     }
 
     public List<Flight> getAllFlights(){

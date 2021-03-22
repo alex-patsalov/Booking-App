@@ -2,19 +2,28 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FlightSearchService {
+public final class FlightSearchService {
+    private static FlightSearchService FSS;
+    FlightSearchDAO FSDao;
 
-    public FlightSearchDAO FSDao;
-
-    public FlightSearchService(){
-        FSDao = new FlightsDB();
+    public FlightSearchService(FlightSearchDAO FSDao) {
+        this.FSDao = FSDao;
     }
 
-    public List<Flight> getAllFlights(){
+    public static FlightSearchService getInstance(FlightSearchDAO FSDao) {
+        if (FlightSearchService.FSS != null) {
+            return FSS;
+        }
+        FlightSearchService.FSS = new FlightSearchService(FSDao);
+        return FSS;
+
+    }
+
+    public List<Flight> getAllFlights() {
         return FSDao.getAllFlights();
     }
 
-    public Flight getFlightById(String id){
+    public Flight getFlightById(String id) {
         return FSDao.getFlightById(id);
     }
 
@@ -22,7 +31,7 @@ public class FlightSearchService {
         return FSDao.deleteFlightById(id);
     }
 
-    public Flight saveFlight(Flight f){
+    public Flight saveFlight(Flight f) {
         return FSDao.saveFlight(f);
     }
 
@@ -34,9 +43,9 @@ public class FlightSearchService {
         return FSDao.getDataFromDB();
     }
 
-    public void makeRandomFlights(int number){
+    public void makeRandomFlights(int number) {
         List<Flight> flights = new ArrayList<>();
-        for(int i = 0; i < number; i++){
+        for (int i = 0; i < number; i++) {
             flights.add(new Flight());
         }
         try {
