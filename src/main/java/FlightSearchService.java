@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public final class FlightSearchService {
     private static FlightSearchService FSS;
@@ -23,7 +24,7 @@ public final class FlightSearchService {
         return FSDao.getAllFlights();
     }
 
-    public Flight getFlightById(String id) throws IndexOutOfBoundsException {
+    public Optional<Flight> getFlightById(String id) throws IndexOutOfBoundsException {
         return FSDao.getFlightById(id);
     }
 

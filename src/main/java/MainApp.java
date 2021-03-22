@@ -1,8 +1,5 @@
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
+import java.util.*;
 
 public class MainApp {
     public static Scanner sc = new Scanner(System.in);
@@ -39,7 +36,7 @@ public class MainApp {
         String buffer = sc.nextLine();
         String id = sc.nextLine();
         try {
-            FSC.getInfoAboutFlight(id);
+            FSC.getInfoAboutFlight(id.toUpperCase());
         } catch (IndexOutOfBoundsException e){
             System.out.println("Такого рейса нет...");
         }

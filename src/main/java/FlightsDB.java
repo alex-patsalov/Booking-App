@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class FlightsDB implements FlightSearchDAO{
@@ -13,9 +14,9 @@ public class FlightsDB implements FlightSearchDAO{
     }
 
     @Override
-    public Flight getFlightById(String id) throws IndexOutOfBoundsException {
+    public Optional<Flight> getFlightById(String id) throws IndexOutOfBoundsException {
         List<Flight> flight = this.getAllFlights().stream().filter(f -> f.getId().equals(id)).collect(Collectors.toList());
-        return flight.get(0);
+        return Optional.ofNullable(flight.get(0));
     }
 
     @Override
