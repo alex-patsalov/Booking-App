@@ -22,7 +22,7 @@ public final class FlightSearchController {
         return FSS.getAllFlights();
     }
 
-    public Flight getFlightById(String id){
+    public Flight getFlightById(String id) throws IndexOutOfBoundsException{
         return FSS.getFlightById(id);
     }
 
@@ -40,6 +40,12 @@ public final class FlightSearchController {
 
     public List<Flight> getDataFomDB() throws IOException, ClassNotFoundException {
         return FSS.getDataFromDB();
+    }
+
+    public void getInfoAboutFlight(String id) throws IndexOutOfBoundsException{
+        Flight f = this.getFlightById(id);
+        System.out.println("FLIGHT | TIME OF DEPARTURE | FROM |     TO     | SEATS | FREE ");
+        f.prettyFormat();
     }
 
     public void makeRandomFlights(int number){

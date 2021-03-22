@@ -13,7 +13,7 @@ public class FlightsDB implements FlightSearchDAO{
     }
 
     @Override
-    public Flight getFlightById(String id) {
+    public Flight getFlightById(String id) throws IndexOutOfBoundsException {
         List<Flight> flight = this.getAllFlights().stream().filter(f -> f.getId().equals(id)).collect(Collectors.toList());
         return flight.get(0);
     }
@@ -66,8 +66,8 @@ public class FlightsDB implements FlightSearchDAO{
         FileInputStream fis = new FileInputStream(file);
         ObjectInputStream ois = new ObjectInputStream(fis);
         List<Flight> allFlightsFromDB = (List<Flight>) ois.readObject();
-        System.out.println("This is data from DB:");
-        allFlights.forEach(System.out::println);
+        System.out.println("FLIGHT | TIME OF DEPARTURE | FROM |     TO     | SEATS | FREE ");
+        allFlights.forEach(Flight::prettyFormat);
         this.allFlights = allFlightsFromDB;
         ois.close();
         return allFlightsFromDB;

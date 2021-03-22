@@ -1,5 +1,4 @@
 import java.io.Serializable;
-
 import java.util.Random;
 
 public class Flight implements Serializable {
@@ -18,17 +17,29 @@ public class Flight implements Serializable {
     public int getNumberOfFreeSeats(){
         return this.numberOfFreeSeats;
     }
-
+    public String getTimeOfDeparture(){return this.timeOfDeparture;}
+    public String getCityOfDeparture(){return this.cityOfDeparture;}
+    public String getCityOfDestination(){return this.cityOfDestination;}
+    public int getTotalNumberOfSeats(){return this.totalNumberOfSeats;}
     public int getRandomNumberOfSeats(){
         return random.nextInt(200) + 100;
     }
 
     public int getRandomNumberOfFreeSeats(){
-        return random.nextInt(30) + 1;
+        return random.nextInt(5);
     }
 
     public void setTotalNumberOfFreeSeats(int number){
         this.numberOfFreeSeats = number;
+    }
+
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (obj.getClass() != this.getClass()) return false;
+        Flight that = (Flight) obj;
+
+        return this.getId().equals(that.getId());
     }
 
     public boolean bookSeats(int number){
@@ -51,5 +62,8 @@ public class Flight implements Serializable {
                 ", totalNumberOfSeats=" + totalNumberOfSeats +
                 ", numberOfFreeSeats=" + numberOfFreeSeats +
                 '}';
+    }
+    public void prettyFormat(){
+        System.out.printf("%6s | %17s | %s | %-10s | %-5d | %-4d \n", this.getId(), this.timeOfDeparture, this.cityOfDeparture, this.cityOfDestination, this.totalNumberOfSeats, this.getNumberOfFreeSeats());
     }
 }
