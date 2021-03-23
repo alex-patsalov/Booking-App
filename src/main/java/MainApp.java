@@ -19,6 +19,6 @@ public class MainApp {
         }
 
         System.out.println("\n\n\n\n");
-        System.out.println(FBC.getAvailableFlights("Paris", "2021-03-24", 2));
+        FBC.displayAvailableOptions("Paris", "2021-03-24", 2);
     }
 }

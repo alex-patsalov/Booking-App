@@ -18,4 +18,11 @@ public class FlightBookingController {
         return FBS.getAvailableFlights(destination,date,passengers);
     }
 
+    public void displayAvailableOptions(String destination, String date, int passengers) throws IOException, ClassNotFoundException {
+        final List<Flight> flights = getAvailableFlights(destination,date,passengers);
+        for (int i =0 ; i < flights.size(); i++) {
+            System.out.printf("%d. %s\n", i+1, flights.get(i));
+        }
+    }
+
 }
