@@ -2,11 +2,20 @@ import java.io.IOException;
 import java.util.List;
 
 public class FlightBookingController {
-
+    public static FlightBookingController INSTANCE;
     public FlightBookingService FBS;
 
-    public FlightBookingController(){
-        FBS = new FlightBookingService();
+    private FlightBookingController(FlightBookingService flightBS){
+
+        FBS = flightBS;
+    }
+
+    static FlightBookingController getInstance(FlightBookingService flightBS){
+        if( FlightBookingController.INSTANCE != null) {
+            return INSTANCE;
+        }
+        FlightBookingController.INSTANCE = new FlightBookingController(flightBS);
+        return INSTANCE;
     }
 
 
