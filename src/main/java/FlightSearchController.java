@@ -1,18 +1,29 @@
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
-public class FlightSearchController {
-    public FlightSearchService FSS;
+public final class FlightSearchController {
+    private static FlightSearchController FSC;
+    FlightSearchService FSS;
 
-    public FlightSearchController(){
-        FSS = new FlightSearchService();
+    public FlightSearchController(FlightSearchService FSS){
+        this.FSS = FSS;
+    }
+
+    public static FlightSearchController getInstance(FlightSearchService FSS) {
+        if (FlightSearchController.FSC != null) {
+            return FSC;
+        }
+        FlightSearchController.FSC = new FlightSearchController(FSS);
+        return FSC;
+
     }
 
     public List<Flight> getAllFlights(){
         return FSS.getAllFlights();
     }
 
-    public Flight getFlightById(String id){
+    public Optional<Flight> getFlightById(String id) throws IndexOutOfBoundsException{
         return FSS.getFlightById(id);
     }
 
@@ -30,6 +41,12 @@ public class FlightSearchController {
 
     public List<Flight> getDataFomDB() throws IOException, ClassNotFoundException {
         return FSS.getDataFromDB();
+    }
+
+    public void getInfoAboutFlight(String id) throws IndexOutOfBoundsException{
+        Optional<Flight> f = this.getFlightById(id);
+        System.out.println("FLIGHT | TIME OF DEPARTURE | FROM |     TO     | SEATS | FREE ");
+        f.ifPresent(Flight::prettyFormat);
     }
 
     public void makeRandomFlights(int number){
