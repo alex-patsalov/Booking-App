@@ -31,6 +31,14 @@ public class Flight implements Serializable {
         this.numberOfFreeSeats = number;
     }
 
+    public String getTimeOfDeparture(){
+        return this.timeOfDeparture;
+    }
+
+    public String getCityOfDestination(){
+        return this.cityOfDestination;
+    }
+
     public boolean bookSeats(int number){
         if(this.getNumberOfFreeSeats() > number){
             this.setTotalNumberOfFreeSeats(this.getNumberOfFreeSeats() - number);
