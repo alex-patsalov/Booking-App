@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class MainApp {
+    public static FlightBookingController FBC = new FlightBookingController();
     public static Scanner sc = new Scanner(System.in);
     private final static FlightSearchDAO FlightSearchDAO = new FlightsDB();
     private final static FlightSearchService FSS = FlightSearchService.getInstance(FlightSearchDAO);
@@ -22,6 +23,7 @@ public class MainApp {
                 "5. Мои рейсы \n" +
                 "6. Выход");
     }
+
     public static void showAllFLights(){
         List<Flight> allFlights = FSC.getAllFlights();
         try {
@@ -31,6 +33,7 @@ public class MainApp {
             e.printStackTrace();
         }
     }
+
     public static void showFLightById(){
         System.out.print("Номер рейса: ");
         String buffer = sc.nextLine();
@@ -51,8 +54,9 @@ public class MainApp {
     public static void showMyBookings(){
 
     }
-    public static void main(String[] args) {
-//        FSC.makeRandomFlights(10);
+
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        FSC.makeRandomFlights(100);
         for(; ;){
             printMenu();
             System.out.print("Выбери пункт: ");
@@ -65,5 +69,7 @@ public class MainApp {
             }
         }
 
+        System.out.println("\n\n\n\n");
+        FBC.displayAvailableOptions("Paris", "2021-03-24", 2);
     }
 }
