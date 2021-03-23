@@ -2,7 +2,9 @@ import java.io.IOException;
 import java.util.*;
 
 public class MainApp {
-    public static FlightBookingController FBC = new FlightBookingController();
+    private final static FlightBookingDAO flightBooking = new FlightBookings();
+    public static FlightBookingService FBS = FlightBookingService.getInstance(flightBooking);
+    public static FlightBookingController FBC = FlightBookingController.getInstance(FBS);
     public static Scanner sc = new Scanner(System.in);
     private final static FlightSearchDAO FlightSearchDAO = new FlightsDB();
     private final static FlightSearchService FSS = FlightSearchService.getInstance(FlightSearchDAO);
