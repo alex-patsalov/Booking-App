@@ -5,15 +5,15 @@ public class FlightBookingService {
     private static FlightBookingService INSTANCE;
     public FlightBookingDAO FBDao;
 
-    FlightBookingService() {
-        this.FBDao =  new FlightBookings();
+    FlightBookingService(FlightBookingDAO flightBooking) {
+        this.FBDao =  flightBooking;
     }
 
-    public static FlightBookingService getInstance() {
+    public static FlightBookingService getInstance(FlightBookingDAO flightBooking) {
         if (FlightBookingService.INSTANCE != null) {
             return INSTANCE;
         }
-        FlightBookingService.INSTANCE = new FlightBookingService();
+        FlightBookingService.INSTANCE = new FlightBookingService(flightBooking);
         return INSTANCE;
     }
 
