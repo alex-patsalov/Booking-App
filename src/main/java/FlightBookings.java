@@ -45,7 +45,6 @@ public class FlightBookings implements FlightBookingDAO {
         FileInputStream fis = new FileInputStream(file);
         ObjectInputStream ois = new ObjectInputStream(fis);
         List<Flight> allFlightsFromDB = (List<Flight>) ois.readObject();
-        allFlights.forEach(System.out::println);
         this.allFlights = allFlightsFromDB;
         ois.close();
         return allFlightsFromDB;
