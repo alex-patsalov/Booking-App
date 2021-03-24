@@ -23,15 +23,18 @@ public class FlightBookingController {
         return FBS.getFlightsFromDB();
     }
 
-    public List<Flight> getAvailableFlights(String destination, String date, int passengers) throws IOException, ClassNotFoundException {
-        return FBS.getAvailableFlights(destination,date,passengers);
+    public List<Flight> getAvailableFlights() throws IOException, ClassNotFoundException {
+        return FBS.getAvailableFlights();
     }
 
-    public void displayAvailableOptions(String destination, String date, int passengers) throws IOException, ClassNotFoundException {
-        final List<Flight> flights = getAvailableFlights(destination,date,passengers);
+    public void displayAvailableOptions() throws IOException, ClassNotFoundException {
+        final List<Flight> flights = getAvailableFlights();
+        System.out.println("  FLIGHT | TIME OF DEPARTURE | FROM |     TO     | SEATS | FREE ");
         for (int i =0 ; i < flights.size(); i++) {
-            System.out.printf("%d. %s\n", i+1, flights.get(i));
+            System.out.printf("%d.", i+1);
+            flights.get(i).prettyFormat();
         }
+        System.out.println("\n\n");
     }
 
 }

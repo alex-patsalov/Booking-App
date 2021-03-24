@@ -69,9 +69,11 @@ public class MainApp {
             } catch (NullPointerException e){
                 System.out.println("Мимо, попробуй еще...");
             }
+            if(mainMenuSelection == 3) FBC.displayAvailableOptions();
         }
 
         System.out.println("\n\n\n\n");
-        FBC.displayAvailableOptions("Paris", "2021-03-24", 2);
+
+//        FBC.displayAvailableOptions("Paris", "2021-03-24", 2);
     }
 }
