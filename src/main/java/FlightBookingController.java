@@ -5,13 +5,13 @@ public class FlightBookingController {
     public static FlightBookingController INSTANCE;
     public FlightBookingService FBS;
 
-    private FlightBookingController(FlightBookingService flightBS){
+    private FlightBookingController(FlightBookingService flightBS) {
 
         FBS = flightBS;
     }
 
-    static FlightBookingController getInstance(FlightBookingService flightBS){
-        if( FlightBookingController.INSTANCE != null) {
+    static FlightBookingController getInstance(FlightBookingService flightBS) {
+        if (FlightBookingController.INSTANCE != null) {
             return INSTANCE;
         }
         FlightBookingController.INSTANCE = new FlightBookingController(flightBS);
@@ -29,12 +29,17 @@ public class FlightBookingController {
 
     public void displayAvailableOptions() throws IOException, ClassNotFoundException {
         final List<Flight> flights = getAvailableFlights();
-        System.out.println("  FLIGHT | TIME OF DEPARTURE | FROM |     TO     | SEATS | FREE ");
-        for (int i =0 ; i < flights.size(); i++) {
-            System.out.printf("%d.", i+1);
-            flights.get(i).prettyFormat();
+        if (flights.size() == 0) {
+            System.out.println("Нету подходящих рейсов\n\n");
+        } else {
+            System.out.println("  FLIGHT | TIME OF DEPARTURE | FROM |     TO     | SEATS | FREE ");
+            for (int i = 0; i < flights.size(); i++) {
+                System.out.printf("%d.", i + 1);
+                flights.get(i).prettyFormat();
+            }
+            System.out.println("\n");
+            FBS.selectAndBook(flights);
         }
-        System.out.println("\n\n");
     }
 
 }

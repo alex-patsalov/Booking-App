@@ -122,4 +122,15 @@ public class FlightBookingService {
         }
         return true;
     }
+
+    public void selectAndBook(List <Flight> flights) {
+        int number;
+        do {
+            number = getIntFromUser("Выберите рейс по порядковому номеру");
+        }
+        while (number<1 || number>flights.size());
+        System.out.println("Вы выбрали \n");
+        flights.get(number -1).prettyFormat();
+        System.out.println("\n");
+    }
 }
