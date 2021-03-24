@@ -12,6 +12,7 @@ public class FlightBookingController {
 
     static FlightBookingController getInstance(FlightBookingService flightBS) {
         if (FlightBookingController.INSTANCE != null) {
+
             return INSTANCE;
         }
         FlightBookingController.INSTANCE = new FlightBookingController(flightBS);

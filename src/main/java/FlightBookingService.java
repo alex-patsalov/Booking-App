@@ -5,8 +5,10 @@ import java.util.Scanner;
 public class FlightBookingService {
     private static FlightBookingService INSTANCE;
     public FlightBookingDAO FBDao;
+
     static Scanner sc = new Scanner(System.in);
     private FlightBookingService(FlightBookingDAO flightBooking) {
+
         this.FBDao =  flightBooking;
     }
 
@@ -17,10 +19,6 @@ public class FlightBookingService {
         FlightBookingService.INSTANCE = new FlightBookingService(flightBooking);
         return INSTANCE;
     }
-
-//    public List<Flight> getAvailableFlights(String destination, String date, int passengers) throws IOException, ClassNotFoundException {
-//        return FBDao.getAvailableFlights(destination,date,passengers);
-//    }
 
     public List<Flight> getFlightsFromDB() throws IOException, ClassNotFoundException {
         return FBDao.getFlightsFromDB();
