@@ -39,7 +39,7 @@ public final class FlightSearchController {
         FSS.saveDataToDB(flights);
     }
 
-    public List<Flight> getDataFomDB() throws IOException, ClassNotFoundException {
+    public List<Flight> getDataFromDB() throws IOException, ClassNotFoundException {
         return FSS.getDataFromDB();
     }
 

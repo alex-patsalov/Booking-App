@@ -25,17 +25,15 @@ public class MainApp {
                 "5. Мои рейсы \n" +
                 "6. Выход");
     }
-
     public static void showAllFLights(){
         List<Flight> allFlights = FSC.getAllFlights();
         try {
-            List<Flight> dataFromDB = FSC.getDataFomDB();
+            List<Flight> dataFromDB = FSC.getDataFromDB();
             dataFromDB.forEach(Flight::prettyFormat);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
-
     public static void showFLightById(){
         System.out.print("Номер рейса: ");
         String buffer = sc.nextLine();
