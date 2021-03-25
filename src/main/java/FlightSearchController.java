@@ -6,7 +6,7 @@ public final class FlightSearchController {
     private static FlightSearchController FSC;
     FlightSearchService FSS;
 
-    public FlightSearchController(FlightSearchService FSS){
+    private FlightSearchController(FlightSearchService FSS){
         this.FSS = FSS;
     }
 

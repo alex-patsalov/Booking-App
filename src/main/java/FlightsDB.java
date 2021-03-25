@@ -53,7 +53,7 @@ public class FlightsDB implements FlightSearchDAO{
     }
 
     @Override
-    public void saveDataToDB(List<Flight> flights) throws IOException {
+    public  void saveDataToDB(List<Flight> flights) throws IOException {
         File file = new File("FlightsDB.bin");
         FileOutputStream fos = new FileOutputStream(file);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -67,9 +67,10 @@ public class FlightsDB implements FlightSearchDAO{
         FileInputStream fis = new FileInputStream(file);
         ObjectInputStream ois = new ObjectInputStream(fis);
         List<Flight> allFlightsFromDB = (List<Flight>) ois.readObject();
+
+        this.allFlights = allFlightsFromDB;
         System.out.println("FLIGHT | TIME OF DEPARTURE | FROM |     TO     | SEATS | FREE ");
         allFlights.forEach(Flight::prettyFormat);
-        this.allFlights = allFlightsFromDB;
         ois.close();
         return allFlightsFromDB;
     }

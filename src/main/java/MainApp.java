@@ -2,13 +2,14 @@ import java.io.IOException;
 import java.util.*;
 
 public class MainApp {
-    private final static FlightBookingDAO flightBooking = new FlightBookings();
-    public static FlightBookingService FBS = FlightBookingService.getInstance(flightBooking);
-    public static FlightBookingController FBC = FlightBookingController.getInstance(FBS);
+
     public static Scanner sc = new Scanner(System.in);
     private final static FlightSearchDAO FlightSearchDAO = new FlightsDB();
     private final static FlightSearchService FSS = FlightSearchService.getInstance(FlightSearchDAO);
     public static FlightSearchController FSC = FlightSearchController.getInstance(FSS);
+    private final static FlightBookingDAO flightBooking = new FlightBookings(FlightSearchDAO);
+    public static FlightBookingService FBS = FlightBookingService.getInstance(flightBooking);
+    public static FlightBookingController FBC = FlightBookingController.getInstance(FBS);
 
     public static HashMap<Integer, Runnable> menu = new HashMap<Integer,Runnable>(){{
         put(1, MainApp::showAllFLights);
@@ -46,16 +47,24 @@ public class MainApp {
 
     }
     public static void searchAndBook(){
-
+        try {
+            FBC.displayAvailableOptions();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
     public static void cancelBooking(){
-
+        FBC.cancelBooking();
     }
     public static void showMyBookings(){
-
+        try {
+            FBC.displayMyBookings();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args){
         FSC.makeRandomFlights(100);
         for(; ;){
             printMenu();
@@ -70,6 +79,7 @@ public class MainApp {
         }
 
         System.out.println("\n\n\n\n");
-        FBC.displayAvailableOptions("Paris", "2021-03-24", 2);
+
+//        FBC.displayAvailableOptions("Paris", "2021-03-24", 2);
     }
 }
