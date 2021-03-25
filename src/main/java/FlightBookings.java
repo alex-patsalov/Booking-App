@@ -10,14 +10,16 @@ public class FlightBookings implements FlightBookingDAO {
     int selectedNumberOfSeats;
     FlightSearchDAO flightDB;
 
-    FlightBookings(FlightSearchDAO flDB){
+    FlightBookings(FlightSearchDAO flDB) {
         this.flightDB = flDB;
         try {
-            saveBookingsToDB(bookings);
-        } catch (IOException e) {
+            this.bookings = (ArrayList<Booking>) getBookingsFromDB();
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
+
         }
     }
+
     @Override
     public List<Flight> getAllFlights() {
         return this.allFlights;
@@ -29,9 +31,9 @@ public class FlightBookings implements FlightBookingDAO {
         this.getBookingsFromDB();
         this.selectedNumberOfSeats = passengers;
         System.out.println("Options for booking:\n");
-        List<Flight> flights =   this.allFlights.stream().filter(fl -> (destination.equals(fl.getCityOfDestination())
-                &&(fl.getTimeOfDeparture().substring(0, 10)).equals(date)) && (passengers < fl.getNumberOfFreeSeats()))
-        .collect(Collectors.toList());
+        List<Flight> flights = this.allFlights.stream().filter(fl -> (destination.equals(fl.getCityOfDestination())
+                && (fl.getTimeOfDeparture().substring(0, 10)).equals(date)) && (passengers < fl.getNumberOfFreeSeats()))
+                .collect(Collectors.toList());
 
         return flights;
     }
@@ -46,14 +48,14 @@ public class FlightBookings implements FlightBookingDAO {
 
         System.out.println("количество выбранных мест: " + selectedNumberOfSeats);
         ArrayList<Passenger> passengers = new ArrayList<>();
-        for(int seat=1; seat <= selectedNumberOfSeats;seat++) {
-           String name = FlightBookingService.getInput("Ввведите имя " + seat + " пассажира");
-           String surname = FlightBookingService.getInput("Ввведите фамилию " + seat + " пассажира");
-            Passenger p = new Passenger(name,surname);
+        for (int seat = 1; seat <= selectedNumberOfSeats; seat++) {
+            String name = FlightBookingService.getInput("Ввведите имя " + seat + " пассажира");
+            String surname = FlightBookingService.getInput("Ввведите фамилию " + seat + " пассажира");
+            Passenger p = new Passenger(name, surname);
             passengers.add(p);
         }
         String id = UUID.randomUUID().toString();
-        Booking booking = new Booking(flight,passengers, id);
+        Booking booking = new Booking(flight, passengers, id);
         bookings.add(booking);
         this.saveBookingsToDB(bookings);
         System.out.printf("Бронирование сохранено: %s\n", booking.toString());
@@ -61,31 +63,31 @@ public class FlightBookings implements FlightBookingDAO {
         return booking;
     }
 
-    public void updateFlight(Flight flight,int seats) throws IOException {
-       Flight fl =  allFlights.stream()
-               .filter(fli -> fli.getId().equals(flight.getId()))
-               .findFirst().orElse(null);
-       if (fl!= null) {
-           fl.setTotalNumberOfFreeSeats(fl.getNumberOfFreeSeats() - seats);
-       }
+    public void updateFlight(Flight flight, int seats) throws IOException {
+        Flight fl = allFlights.stream()
+                .filter(fli -> fli.getId().equals(flight.getId()))
+                .findFirst().orElse(null);
+        if (fl != null) {
+            fl.setTotalNumberOfFreeSeats(fl.getNumberOfFreeSeats() - seats);
+        }
         allFlights.forEach(fli -> {
-           if(fli.getId().equals(fl.getId())) {
-               fli = fl;
-           }
+            if (fli.getId().equals(fl.getId())) {
+                fli = fl;
+            }
         });
-       flightDB.saveDataToDB(allFlights);
-       flightDB.getAllFlights();
+        flightDB.saveDataToDB(allFlights);
+        flightDB.getAllFlights();
         System.out.println(fl);
 
     }
 
     @Override
     public void saveBookingsToDB(List<Booking> bookings) throws IOException {
-        File file = new File("bookingsDb.bin");
+        File file = new File("bookingsDB.bin");
         FileOutputStream fos = new FileOutputStream(file);
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(bookings);
-        oos.close();
+        try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+            oos.writeObject(bookings);
+        }
     }
 
     @Override
@@ -101,12 +103,25 @@ public class FlightBookings implements FlightBookingDAO {
 
     @Override
     public List<Booking> getBookingsFromDB() throws IOException, ClassNotFoundException {
-        File file = new File("BookingsDB.bin");
+
+        File file = new File("bookingsDB.bin");
         FileInputStream fis = new FileInputStream(file);
-        ObjectInputStream ois = new ObjectInputStream(fis);
-        List<Booking> allBookingsFromDB = (List<Booking>) ois.readObject();
-        this.bookings = (ArrayList<Booking>) allBookingsFromDB;
-        ois.close();
-        return allBookingsFromDB;
+        try (ObjectInputStream ois = new ObjectInputStream(fis)) {
+            ArrayList<Booking> allBookingsFromDB = (ArrayList<Booking>) ois.readObject();
+            this.bookings = allBookingsFromDB;
+            return allBookingsFromDB;
+        }
+        catch (FileNotFoundException e) {
+            this.saveBookingsToDB(bookings);
+            return this.bookings;
+        }
+    }
+
+    @Override
+    public void displayMyBookings() throws IOException, ClassNotFoundException {
+        List<Booking> myFlights = getBookingsFromDB();
+        myFlights.forEach(fl -> {
+            System.out.println(fl.toString());
+        });
     }
 }

@@ -9,4 +9,6 @@ public interface FlightBookingDAO {
     void saveBookingsToDB(List<Booking> bookings) throws IOException;
     List<Flight> getFlightsFromDB() throws IOException, ClassNotFoundException;
     List<Booking> getBookingsFromDB() throws IOException, ClassNotFoundException;
+
+    void displayMyBookings() throws IOException, ClassNotFoundException;
 }

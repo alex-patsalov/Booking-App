@@ -133,4 +133,8 @@ public class FlightBookingService {
         Flight choosenFlight = flights.get(number -1);
         Booking booking = this.FBDao.saveFlightToBookingList(choosenFlight);
     }
+
+    public void displayMyBookings() throws IOException, ClassNotFoundException {
+        FBDao.displayMyBookings();
+    }
 }

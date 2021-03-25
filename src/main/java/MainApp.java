@@ -49,16 +49,24 @@ public class MainApp {
 
     }
     public static void searchAndBook(){
-
+        try {
+            FBC.displayAvailableOptions();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
     public static void cancelBooking(){
 
     }
     public static void showMyBookings(){
-
+        try {
+            FBC.displayMyBookings();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args){
         FSC.makeRandomFlights(100);
         for(; ;){
             printMenu();
@@ -70,7 +78,6 @@ public class MainApp {
             } catch (NullPointerException e){
                 System.out.println("Мимо, попробуй еще...");
             }
-            if(mainMenuSelection == 3) FBC.displayAvailableOptions();
         }
 
         System.out.println("\n\n\n\n");

@@ -42,5 +42,7 @@ public class FlightBookingController {
             FBS.selectAndBook(flights);
         }
     }
-
+    public void displayMyBookings() throws IOException, ClassNotFoundException {
+        FBS.displayMyBookings();
+    };
 }
