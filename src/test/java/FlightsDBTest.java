@@ -82,6 +82,7 @@ class FlightsDBTest {
         ObjectInputStream ois = new ObjectInputStream(fis);
         List<Flight> allFLights = (List<Flight>)ois.readObject();
         ois.close();
+
         Assertions.assertEquals(flights,allFLights);
     }
 }
