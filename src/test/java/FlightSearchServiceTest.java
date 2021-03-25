@@ -1,26 +1,26 @@
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class FlightSearchServiceTest {
-    static FlightsDB DB = new FlightsDB();
+    static FlightsDB DB = null;
     static FlightSearchService FSS = null;
-//    static Flight f = new Flight();
+    static Flight f = new Flight();
 //    static File file = null;
-    @BeforeEach
-    public void before(){
+    @BeforeAll
+    public static void beforeAll(){
+        DB = new FlightsDB();
         FSS = new FlightSearchService(DB);
 //        file = new File("FlightsDBforTests.bin");
     }
-    @AfterEach
-    public void after(){
+    @AfterAll
+    public static void afterAll(){
         FSS = null;
 //        file.delete();
     }
@@ -33,31 +33,51 @@ class FlightSearchServiceTest {
     @Test
     void getAllFlights() {
         List<Flight> allFlights = FSS.getAllFlights();
-        List<Flight> expected = new ArrayList<>();
-        Assertions.assertEquals(expected, allFlights);
+        Assertions.assertEquals(10, allFlights.size());
     }
 
     @Test
-    void getFlightById() {
+    void getFlightById() throws IOException, ClassNotFoundException {
+        List<Flight> allFlights = new ArrayList<Flight>();
+        allFlights.add(f);
+        String id = f.getId();
+        FSS.saveFlight(f);
+        Flight flightById = FSS.getFlightById(id);
+        Assertions.assertEquals(flightById.getId(), id);
     }
 
     @Test
-    void deleteFlightById() {
+    void deleteFlightById() throws IOException {
+        List<Flight> allFlights = new ArrayList<Flight>();
+        allFlights.add(f);
+        String id = "UA449";
+        FSS.saveFlight(f);
+        boolean bool = FSS.deleteFlightById(id);
+        boolean deleted = allFlights.remove(f);
+        Assertions.assertEquals(bool, deleted);
+        allFlights.add(f);
     }
 
     @Test
     void saveFlight() {
+        Flight flight = FSS.saveFlight(f);
+        boolean contains = FSS.getAllFlights().contains(f);
+        Assertions.assertTrue(contains);
     }
 
     @Test
     void saveDataToDB() {
+
     }
 
     @Test
     void getDataFromDB() {
+
     }
 
     @Test
-    void makeRandomFlights() {
+    void makeRandomFlights() throws IOException, ClassNotFoundException {
+        FSS.makeRandomFlights(10);
+        Assertions.assertEquals(10, FSS.getDataFromDB().size());
     }
 }

@@ -24,7 +24,7 @@ public final class FlightSearchService {
         return FSDao.getAllFlights();
     }
 
-    public Optional<Flight> getFlightById(String id) throws IndexOutOfBoundsException {
+    public Flight getFlightById(String id) throws IndexOutOfBoundsException, IOException, ClassNotFoundException {
         return FSDao.getFlightById(id);
     }
 

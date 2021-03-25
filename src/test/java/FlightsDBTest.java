@@ -1,7 +1,4 @@
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -12,13 +9,14 @@ class FlightsDBTest {
     static FlightsDB DB = null;
     static Flight f = new Flight();
     static File file = null;
-    @BeforeEach
-    public void before(){
+//    static File file = new File("FlightsDBforTests.bin");
+    @BeforeAll
+    public static void beforeAll(){
         DB = new FlightsDB();
         file = new File("FlightsDBforTests.bin");
     }
-    @AfterEach
-    public void after(){
+    @AfterAll
+    public static void afterAll(){
         DB = null;
         file.delete();
     }
@@ -30,21 +28,20 @@ class FlightsDBTest {
     }
 
     @Test
-    void getFlightById() {
+    void getFlightById() throws IOException, ClassNotFoundException {
         List<Flight> allFlights = new ArrayList<Flight>();
         allFlights.add(f);
-        String id = "DE893";
+        String id = f.getId();
         DB.saveFlight(f);
-        Optional<Flight> flightById = DB.getFlightById(id);
-        Flight flight = flightById.get();
-        Assertions.assertEquals(flight.getId(), id);
+        Flight flightById = DB.getFlightById(id);
+        Assertions.assertEquals(flightById.getId(), id);
     }
 
     @Test
     void deleteFlightById() throws IOException {
         List<Flight> allFlights = new ArrayList<Flight>();
         allFlights.add(f);
-        String id = "DE490";
+        String id = "FR325";
         DB.saveFlight(f);
         boolean bool = DB.deleteFlightById(id);
         boolean deleted = allFlights.remove(f);

@@ -6,7 +6,7 @@ public final class FlightSearchController {
     private static FlightSearchController FSC;
     FlightSearchService FSS;
 
-    private FlightSearchController(FlightSearchService FSS){
+    FlightSearchController(FlightSearchService FSS){
         this.FSS = FSS;
     }
 
@@ -23,7 +23,7 @@ public final class FlightSearchController {
         return FSS.getAllFlights();
     }
 
-    public Optional<Flight> getFlightById(String id) throws IndexOutOfBoundsException{
+    public Flight getFlightById(String id) throws IndexOutOfBoundsException, IOException, ClassNotFoundException {
         return FSS.getFlightById(id);
     }
 
@@ -43,10 +43,10 @@ public final class FlightSearchController {
         return FSS.getDataFromDB();
     }
 
-    public void getInfoAboutFlight(String id) throws IndexOutOfBoundsException{
-        Optional<Flight> f = this.getFlightById(id);
+    public void getInfoAboutFlight(String id) throws IndexOutOfBoundsException, IOException, ClassNotFoundException {
+        Flight f = this.getFlightById(id);
         System.out.println("FLIGHT | TIME OF DEPARTURE | FROM |     TO     | SEATS | FREE ");
-        f.ifPresent(Flight::prettyFormat);
+        f.prettyFormat();
     }
 
     public void makeRandomFlights(int number){

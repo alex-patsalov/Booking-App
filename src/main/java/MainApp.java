@@ -26,8 +26,9 @@ public class MainApp {
                 "5. Мои рейсы \n" +
                 "6. Выход");
     }
+
     public static void showAllFLights(){
-        List<Flight> allFlights = FSC.getAllFlights();
+//        List<Flight> allFlights = FSC.getAllFlights();
         try {
             List<Flight> dataFromDB = FSC.getDataFromDB();
             dataFromDB.forEach(Flight::prettyFormat);
@@ -35,6 +36,7 @@ public class MainApp {
             e.printStackTrace();
         }
     }
+
     public static void showFLightById(){
         System.out.print("Номер рейса: ");
         String buffer = sc.nextLine();
@@ -43,6 +45,8 @@ public class MainApp {
             FSC.getInfoAboutFlight(id.toUpperCase());
         } catch (IndexOutOfBoundsException e){
             System.out.println("Такого рейса нет...");
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
     }
@@ -64,8 +68,8 @@ public class MainApp {
         }
     }
 
-    public static void main(String[] args){
-        FSC.makeRandomFlights(100);
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+//        FSC.makeRandomFlights(100);
         for(; ;){
             printMenu();
             System.out.print("Выбери пункт: ");
