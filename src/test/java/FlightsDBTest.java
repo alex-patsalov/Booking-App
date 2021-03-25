@@ -9,7 +9,7 @@ class FlightsDBTest {
     static FlightsDB DB = null;
     static Flight f = new Flight();
     static File file = null;
-//    static File file = new File("FlightsDBforTests.bin");
+
     @BeforeAll
     public static void beforeAll(){
         DB = new FlightsDB();
@@ -23,13 +23,13 @@ class FlightsDBTest {
 
     @Test
     void getAllFlights() {
-        List<Flight> allFlights = new ArrayList<Flight>();
+        List<Flight> allFlights = new ArrayList<>();
         Assertions.assertEquals(DB.getAllFlights(), allFlights);
     }
 
     @Test
     void getFlightById() throws IOException, ClassNotFoundException {
-        List<Flight> allFlights = new ArrayList<Flight>();
+        List<Flight> allFlights = new ArrayList<>();
         allFlights.add(f);
         String id = f.getId();
         DB.saveFlight(f);
@@ -39,7 +39,7 @@ class FlightsDBTest {
 
     @Test
     void deleteFlightById() throws IOException {
-        List<Flight> allFlights = new ArrayList<Flight>();
+        List<Flight> allFlights = new ArrayList<>();
         allFlights.add(f);
         String id = "FR325";
         DB.saveFlight(f);

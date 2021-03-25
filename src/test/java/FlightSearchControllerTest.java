@@ -3,7 +3,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,18 +15,18 @@ class FlightSearchControllerTest {
     static FlightSearchService FSS = null;
     static FlightSearchController FSC = null;
     static Flight f = new Flight();
-    //    static File file = null;
+        static File file = null;
     @BeforeAll
     public static void beforeAll(){
         DB = new FlightsDB();
         FSS = new FlightSearchService(DB);
         FSC = new FlightSearchController(FSS);
-//        file = new File("FlightsDBforTests.bin");
+        file = new File("FlightsDBforTests.bin");
     }
     @AfterAll
     public static void afterAll(){
         FSC = null;
-//        file.delete();
+        file.delete();
     }
 
     @Test
@@ -43,7 +43,7 @@ class FlightSearchControllerTest {
 
     @Test
     void getFlightById() throws IOException, ClassNotFoundException {
-        List<Flight> allFlights = new ArrayList<Flight>();
+        List<Flight> allFlights = new ArrayList<>();
         allFlights.add(f);
         String id = f.getId();
         FSC.saveFlight(f);
@@ -53,7 +53,7 @@ class FlightSearchControllerTest {
 
     @Test
     void deleteFlightById() throws IOException {
-        List<Flight> allFlights = new ArrayList<Flight>();
+        List<Flight> allFlights = new ArrayList<>();
         allFlights.add(f);
         String id = "UA449";
         FSS.saveFlight(f);
@@ -71,11 +71,33 @@ class FlightSearchControllerTest {
     }
 
     @Test
-    void saveDataToDB() {
+    void saveDataToDB() throws IOException, ClassNotFoundException {
+        List<Flight> flights = new ArrayList<>();
+        flights.add(f);
+        FileOutputStream fos = new FileOutputStream(file);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(flights);
+        oos.close();
+        FileInputStream fis = new FileInputStream(file);
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        List<Flight> allFLights = (List<Flight>)ois.readObject();
+        ois.close();
+        Assertions.assertEquals(flights,allFLights);
     }
 
     @Test
-    void getDataFromDB() {
+    void getDataFromDB() throws IOException, ClassNotFoundException {
+        List<Flight> flights = new ArrayList<>();
+        flights.add(f);
+        FileOutputStream fos = new FileOutputStream(file);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(flights);
+        oos.close();
+        FileInputStream fis = new FileInputStream(file);
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        List<Flight> allFLights = (List<Flight>)ois.readObject();
+        ois.close();
+        Assertions.assertEquals(flights,allFLights);
     }
 
     @Test
