@@ -45,4 +45,8 @@ public class FlightBookingController {
     public void displayMyBookings() throws IOException, ClassNotFoundException {
         FBS.displayMyBookings();
     };
+
+    public void cancelBooking() {
+        FBS.cancelBooking();
+    }
 }

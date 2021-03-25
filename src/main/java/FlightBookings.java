@@ -1,7 +1,9 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 public class FlightBookings implements FlightBookingDAO {
@@ -76,9 +78,11 @@ public class FlightBookings implements FlightBookingDAO {
             }
         });
         flightDB.saveDataToDB(allFlights);
-        flightDB.getAllFlights();
-        System.out.println(fl);
-
+        try {
+            flightDB.getDataFromDB();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -120,8 +124,28 @@ public class FlightBookings implements FlightBookingDAO {
     @Override
     public void displayMyBookings() throws IOException, ClassNotFoundException {
         List<Booking> myFlights = getBookingsFromDB();
+        System.out.println("Мои бронирования: ");
         myFlights.forEach(fl -> {
             System.out.println(fl.toString());
         });
     }
+
+    @Override
+    public void cancelBooking(String id){
+        Booking booking = Objects.requireNonNull(this.bookings.stream().filter(b -> b.getId().equals(id)).findFirst().orElse(null));;
+        List<Booking> updatedBookings = this.bookings.stream().filter(b -> !(b.getId().equals(id))).collect(Collectors.toList());
+        try {
+            saveBookingsToDB(updatedBookings);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        this.bookings = (ArrayList<Booking>) updatedBookings;
+        int numberOfSeats = booking.getPassengers().size();
+        try {
+            updateFlight(booking.getFlight(), -numberOfSeats);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    };
 }

@@ -137,4 +137,9 @@ public class FlightBookingService {
     public void displayMyBookings() throws IOException, ClassNotFoundException {
         FBDao.displayMyBookings();
     }
+
+    public void cancelBooking() {
+        String id = getInput("Введите id рейса: ");
+        FBDao.cancelBooking(id);
+    }
 }

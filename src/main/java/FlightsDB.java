@@ -67,9 +67,10 @@ public class FlightsDB implements FlightSearchDAO{
         FileInputStream fis = new FileInputStream(file);
         ObjectInputStream ois = new ObjectInputStream(fis);
         List<Flight> allFlightsFromDB = (List<Flight>) ois.readObject();
+
+        this.allFlights = allFlightsFromDB;
         System.out.println("FLIGHT | TIME OF DEPARTURE | FROM |     TO     | SEATS | FREE ");
         allFlights.forEach(Flight::prettyFormat);
-        this.allFlights = allFlightsFromDB;
         ois.close();
         return allFlightsFromDB;
     }

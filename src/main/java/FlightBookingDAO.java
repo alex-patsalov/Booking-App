@@ -11,4 +11,6 @@ public interface FlightBookingDAO {
     List<Booking> getBookingsFromDB() throws IOException, ClassNotFoundException;
 
     void displayMyBookings() throws IOException, ClassNotFoundException;
+
+    void cancelBooking(String id);
 }

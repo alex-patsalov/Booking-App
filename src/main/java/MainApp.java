@@ -56,7 +56,7 @@ public class MainApp {
         }
     }
     public static void cancelBooking(){
-
+        FBC.cancelBooking();
     }
     public static void showMyBookings(){
         try {

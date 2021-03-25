@@ -2,6 +2,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Booking implements Serializable {
+    static final long serialVersionUID = 8368658841056368402L;
     @Override
     public String toString() {
         return "Бронирование: \n" +
@@ -11,9 +12,21 @@ public class Booking implements Serializable {
                 ;
     }
 
-    final Flight  flight;
-  final List<Passenger> passengers;
-  final String id;
+    final private Flight flight;
+    final private List<Passenger> passengers;
+    final private String id;
+
+    public Flight getFlight() {
+        return flight;
+    }
+
+    public List<Passenger> getPassengers() {
+        return passengers;
+    }
+
+    public String getId() {
+        return id;
+    }
 
     public Booking(Flight flight, List<Passenger> passengers, String id) {
         this.flight = flight;

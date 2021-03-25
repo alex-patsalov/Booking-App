@@ -2,6 +2,7 @@ import java.io.Serializable;
 import java.util.Random;
 
 public class Flight implements Serializable {
+    static final long serialVersionUID = 5236579884240132085L;
     private final String id = FlightCompany.generateRandomId();
     private final String cityOfDeparture = "Kyiv";
     private final String cityOfDestination = FlightDestination.getRandomDestination();
