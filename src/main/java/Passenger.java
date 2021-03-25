@@ -6,10 +6,9 @@ public class Passenger implements Serializable {
 
     @Override
     public String toString() {
-        return "Passenger{" +
-                "name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                '}';
+        return "Пассажир: " +
+                "имя: " + name  +
+                ", фамилия: " + surname + '\n';
     }
 
     public Passenger(String name, String surname) {

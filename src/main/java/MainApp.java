@@ -2,13 +2,14 @@ import java.io.IOException;
 import java.util.*;
 
 public class MainApp {
-    private final static FlightBookingDAO flightBooking = new FlightBookings();
-    public static FlightBookingService FBS = FlightBookingService.getInstance(flightBooking);
-    public static FlightBookingController FBC = FlightBookingController.getInstance(FBS);
+
     public static Scanner sc = new Scanner(System.in);
     private final static FlightSearchDAO FlightSearchDAO = new FlightsDB();
     private final static FlightSearchService FSS = FlightSearchService.getInstance(FlightSearchDAO);
     public static FlightSearchController FSC = FlightSearchController.getInstance(FSS);
+    private final static FlightBookingDAO flightBooking = new FlightBookings(FlightSearchDAO);
+    public static FlightBookingService FBS = FlightBookingService.getInstance(flightBooking);
+    public static FlightBookingController FBC = FlightBookingController.getInstance(FBS);
 
     public static HashMap<Integer, Runnable> menu = new HashMap<Integer,Runnable>(){{
         put(1, MainApp::showAllFLights);

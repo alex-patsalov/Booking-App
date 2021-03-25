@@ -8,8 +8,10 @@ public class FlightBookings implements FlightBookingDAO {
     List<Flight> allFlights = new ArrayList<>();
     ArrayList<Booking> bookings = new ArrayList<>();
     int selectedNumberOfSeats;
+    FlightSearchDAO flightDB;
 
-    FlightBookings(){
+    FlightBookings(FlightSearchDAO flDB){
+        this.flightDB = flDB;
         try {
             saveBookingsToDB(bookings);
         } catch (IOException e) {
@@ -55,7 +57,26 @@ public class FlightBookings implements FlightBookingDAO {
         bookings.add(booking);
         this.saveBookingsToDB(bookings);
         System.out.printf("Бронирование сохранено: %s\n", booking.toString());
+        this.updateFlight(flight, selectedNumberOfSeats);
         return booking;
+    }
+
+    public void updateFlight(Flight flight,int seats) throws IOException {
+       Flight fl =  allFlights.stream()
+               .filter(fli -> fli.getId().equals(flight.getId()))
+               .findFirst().orElse(null);
+       if (fl!= null) {
+           fl.setTotalNumberOfFreeSeats(fl.getNumberOfFreeSeats() - seats);
+       }
+        allFlights.forEach(fli -> {
+           if(fli.getId().equals(fl.getId())) {
+               fli = fl;
+           }
+        });
+       flightDB.saveDataToDB(allFlights);
+       flightDB.getAllFlights();
+        System.out.println(fl);
+
     }
 
     @Override

@@ -66,4 +66,7 @@ public class Flight implements Serializable {
     public void prettyFormat(){
         System.out.printf("%6s | %17s | %s | %-10s | %-5d | %-4d \n", this.getId(), this.timeOfDeparture, this.cityOfDeparture, this.cityOfDestination, this.totalNumberOfSeats, this.getNumberOfFreeSeats());
     }
+    public String getPrettyFormat(){
+        return String.format("%6s | %17s | %s | %-10s \n", this.getId(), this.timeOfDeparture, this.cityOfDeparture, this.cityOfDestination);
+    }
 }

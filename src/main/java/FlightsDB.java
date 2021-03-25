@@ -53,7 +53,7 @@ public class FlightsDB implements FlightSearchDAO{
     }
 
     @Override
-    public void saveDataToDB(List<Flight> flights) throws IOException {
+    public  void saveDataToDB(List<Flight> flights) throws IOException {
         File file = new File("FlightsDB.bin");
         FileOutputStream fos = new FileOutputStream(file);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
