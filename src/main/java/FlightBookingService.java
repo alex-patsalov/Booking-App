@@ -121,7 +121,7 @@ public class FlightBookingService {
         return true;
     }
 
-    public void selectAndBook(List <Flight> flights) {
+    public void selectAndBook(List <Flight> flights) throws IOException, ClassNotFoundException {
         int number;
         do {
             number = getIntFromUser("Выберите рейс по порядковому номеру");
@@ -130,5 +130,16 @@ public class FlightBookingService {
         System.out.println("Вы выбрали \n");
         flights.get(number -1).prettyFormat();
         System.out.println("\n");
+        Flight choosenFlight = flights.get(number -1);
+        Booking booking = this.FBDao.saveFlightToBookingList(choosenFlight);
+    }
+
+    public void displayMyBookings() throws IOException, ClassNotFoundException {
+        FBDao.displayMyBookings();
+    }
+
+    public void cancelBooking() {
+        String id = getInput("Введите id рейса: ");
+        FBDao.cancelBooking(id);
     }
 }
