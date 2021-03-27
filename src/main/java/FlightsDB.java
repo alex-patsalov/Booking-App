@@ -14,9 +14,9 @@ public class FlightsDB implements FlightSearchDAO{
     }
 
     @Override
-    public Optional<Flight> getFlightById(String id) throws IndexOutOfBoundsException {
-        List<Flight> flight = this.getAllFlights().stream().filter(f -> f.getId().equals(id)).collect(Collectors.toList());
-        return Optional.ofNullable(flight.get(0));
+    public Flight getFlightById(String id) throws IndexOutOfBoundsException, IOException, ClassNotFoundException {
+        List<Flight> flight = this.getDataFromDB().stream().filter(f -> f.getId().equals(id)).collect(Collectors.toList());
+        return flight.get(0);
     }
 
     @Override

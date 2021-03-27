@@ -6,7 +6,7 @@ import java.util.Optional;
 public interface FlightSearchDAO {
 
     List<Flight> getAllFlights();
-    Optional<Flight> getFlightById(String id);
+    Flight getFlightById(String id) throws IOException, ClassNotFoundException;
     boolean deleteFlightById(String id) throws IOException;
     Flight saveFlight(Flight flight);
     void saveDataToDB(List<Flight> flight) throws IOException;
