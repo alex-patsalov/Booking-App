@@ -105,4 +105,26 @@ class FlightBookingsTest {
         Assertions.assertEquals(real, expected);
 
     }
+    @Test
+    void  getAvFlights() {
+        List<Flight> allFlights = new ArrayList<>(flights) ;
+
+        String destination = flights.get(0).getCityOfDestination();
+        String date = flights.get(0).getTimeOfDeparture().substring(0, 10);
+        int passengers = 1;
+
+        List<Flight> flightsAv = allFlights.stream().filter(fl -> (destination.equals(fl.getCityOfDestination())
+                && (fl.getTimeOfDeparture().substring(0, 10)).equals(date)) && (passengers < fl.getNumberOfFreeSeats()))
+                .collect(Collectors.toList());
+
+        if(flights.get(0).getNumberOfFreeSeats() == 0) {
+            String real = flightsAv.toString();
+            String expected = "[]";
+            Assertions.assertEquals(real, expected);
+        }
+        else {
+           boolean eq = flightsAv.get(0).equals(allFlights.get(0));
+            Assertions.assertTrue(eq);
+        }
+    }
 }
