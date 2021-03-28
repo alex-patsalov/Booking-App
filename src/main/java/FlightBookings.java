@@ -40,10 +40,6 @@ public class FlightBookings implements FlightBookingDAO {
         return flights;
     }
 
-    @Override
-    public boolean deleteFlightByIdFromBookingList(String id) throws IOException {
-        return false;
-    }
 
     @Override
     public Booking saveFlightToBookingList(Flight flight) throws IOException {
