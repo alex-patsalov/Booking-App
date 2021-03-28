@@ -14,11 +14,6 @@ public class FlightBookingServiceTest {
     static File file1 = null;
 
     static FlightBookings DBB = null;
-//    static File file2 = null;
-//    ArrayList<Booking> bookings = new ArrayList<>();
-//    Passenger p = new Passenger("Peter", "Petrenko");
-//    ArrayList<Passenger> passengers = new ArrayList<>();
-//    List<Flight> flights = DBF.getDataFromDB();
 
     public FlightBookingServiceTest() throws IOException, ClassNotFoundException {
     }

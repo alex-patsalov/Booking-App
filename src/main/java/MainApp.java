@@ -28,7 +28,6 @@ public class MainApp {
     }
 
     public static void showAllFLights(){
-//        List<Flight> allFlights = FSC.getAllFlights();
         try {
             List<Flight> dataFromDB = FSC.getDataFromDB();
             dataFromDB.forEach(Flight::prettyFormat);
@@ -69,7 +68,6 @@ public class MainApp {
     }
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-//        FSC.makeRandomFlights(100);
         for(; ;){
             printMenu();
             System.out.print("Выбери пункт: ");
@@ -84,6 +82,5 @@ public class MainApp {
 
         System.out.println("\n\n\n\n");
 
-//        FBC.displayAvailableOptions("Paris", "2021-03-24", 2);
     }
 }
