@@ -1,13 +1,12 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public final class FlightSearchService {
     private static FlightSearchService FSS;
     FlightSearchDAO FSDao;
 
-    public FlightSearchService(FlightSearchDAO FSDao) {
+    FlightSearchService(FlightSearchDAO FSDao) {
         this.FSDao = FSDao;
     }
 

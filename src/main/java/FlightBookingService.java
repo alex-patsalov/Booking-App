@@ -44,7 +44,7 @@ public class FlightBookingService {
              m = String.format("%d", month);
         }
         String date = String.format("%d-%s-%d", year, m , day);
-        int passengers = getIntFromUser("Введите количество пассажиров:\n");
+        int passengers = getIntFromUser("Введите количество пассажиров: \n");
 
         return FBDao.getAvailableFlights(destination,date,passengers);
     }
@@ -124,7 +124,7 @@ public class FlightBookingService {
     public void selectAndBook(List <Flight> flights) throws IOException, ClassNotFoundException {
         int number;
         do {
-            number = getIntFromUser("Выберите рейс по порядковому номеру");
+            number = getIntFromUser("Выберите рейс по порядковому номеру: ");
         }
         while (number<1 || number>flights.size());
         System.out.println("Вы выбрали \n");

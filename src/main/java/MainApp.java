@@ -68,6 +68,7 @@ public class MainApp {
     }
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
+        FSC.makeRandomFlights(100);
         for(; ;){
             printMenu();
             System.out.print("Выбери пункт: ");
